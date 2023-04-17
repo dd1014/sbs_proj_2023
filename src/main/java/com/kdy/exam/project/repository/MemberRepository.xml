@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper	namespace="com.kdy.exam.project.repository.ArticleRepository">
+<mapper	namespace="com.kdy.exam.project.repository.MemberRepository">
 	
-	
-	<insert id="insertMember">
-		INSERT INTO member 
-		SET regDate = NOW(), 
-		updateDate = NOW(), 
-		loginId = #{loginId}, 
-		loginPw = #{loginPw},
-		`name` = #{name},
-		nickname = #{nickname},
-		cellphoneNo = #{cellphoneNo},
-		email = #{email}
+	<insert id="join">
+		INSERT 
+		INTO Member 
+		SET regDate=NOW(), updateDate=NOW(), loginId=#{loginId}, loginPw=#{loginPw}, name=#{name}, nickname=#{nickname}, cellphoneNo=#{cellphoneNo}, email=#{email}
 	</insert>
 	
-	<select id="getMembers" resultType="Member">
-		SELECT * 
-		FROM member 
-		
+	<delete id="deleteMember">
+		DELETE 
+		FROM Member 
+		WHERE id = #{id}
+	</delete>
+	
+	<update id="modifyMember">
+		UPDATE Member 
+		set  loginId=#{loginId}, loginPw=#{loginPw}, `name`=#{name}, nickname=#{nickname}, cellphoneNo=#{cellphoneNo}, email=#{email}
+		updateDate=NOW() WHERE id=#{id}
+	</update>
+	
+	<select id="getLastInsertId" resultType="int">
+		SELECT LAST_INSERT_ID()
 	</select>
 	
 	<select id="getMember" resultType="Member">
 		SELECT * 
-		FROM member 
-		WHERE loginId = #{loginId}
+		FROM Member 
+		WHERE id=#{id}
 	</select>
-
-
+	
+	<select id="getMembers" resultType="Member">
+		SELECT * 
+		FROM Member 
+		ORDER BY id DESC
+	</select>
+	
+	<select id="getMemberByLoginId" resultType="Member">
+		SELECT * 
+		FROM Member 
+		WHERE loginId=#{loginId}
+	</select>
 
 
 
