@@ -32,13 +32,13 @@
 		UPDATE article 
 		<set>
 			<if test="title != null and title != ''">
-				title = #{title}
+				title = #{title},
 			</if>
 			<if test="body != null and body != ''">
-				body = #{body}
+				body = #{body},
 			</if>
-		</set> 
 		updateDate = NOW() 
+		</set> 
 		WHERE id = #{id}
 	</update>
 	
