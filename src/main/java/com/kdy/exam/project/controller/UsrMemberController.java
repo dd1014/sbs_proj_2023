@@ -101,7 +101,7 @@ public class UsrMemberController {
 
 		Member Member = memberService.getMember(joinRd.getData1());
 
-		return ResultData.newData(joinRd, Member);
+		return ResultData.newData(joinRd, "Member", Member);
 	}
 
 	@RequestMapping("/usr/member/doLogin")
