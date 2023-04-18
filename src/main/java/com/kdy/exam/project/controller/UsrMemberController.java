@@ -65,7 +65,7 @@ public class UsrMemberController {
 		httpSession.removeAttribute("loginedMemberId");
 
 		// 로그인성공시
-		return ResultData.from("S-2", Ut.f("S-2","로그아웃 되었습니다.");
+		return ResultData.from("S-2", "로그아웃 되었습니다.");
 	}
 
 	@RequestMapping("/usr/member/doJoin")
