@@ -52,7 +52,7 @@ public class UsrMemberController {
 	public ResultData<Member> doLogout(HttpSession httpSession) {
 		boolean isLogined = false;
 
-		if (httpSession.getAttribute("loginedMemberId") != null) {
+		if (httpSession.getAttribute("loginedMemberId") == null) {
 			isLogined = true;
 		}
 
@@ -134,7 +134,7 @@ public class UsrMemberController {
 			return ResultData.from("F-4", "비밀번호가 일치하지 않습니다.");
 		}
 
-		httpSession.setAttribute("loginedMemberId", member.getLoginId());
+		httpSession.setAttribute("loginedMemberId", member.getId());
 
 		// 로그인성공시
 		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()));
