@@ -41,6 +41,12 @@
 		FROM Member 
 		WHERE loginId=#{loginId}
 	</select>
+	
+	<select id="getMemberByNameAndEmail" resultType="Member">
+		SELECT *
+		FROM Member
+		WHERE `name`=#{name} AND email=#{email}
+	</select>
 
 
 

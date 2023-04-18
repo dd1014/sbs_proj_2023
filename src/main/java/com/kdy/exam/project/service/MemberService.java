@@ -26,12 +26,21 @@ public class MemberService {
 
 	public int join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
 		
+		
+		//로그인아이디 중복체크
 		Member oldmember = getMemberByLoginId(loginId);
 		
 		if(oldmember != null ) {
 			return -1;
 		}
 		
+		//이름+이메일 중복체크
+		
+		oldmember = getMemberByNameAndEmail(name, email);
+		
+		if(oldmember != null) {
+			return -2;
+		}
 		
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 		
@@ -39,11 +48,17 @@ public class MemberService {
 	}
 	
 
+	private Member getMemberByNameAndEmail(String name, String email) {
+		
+		return memberRepository.getMemberByNameAndEmail(name, email);
+	}
+
 	private Member getMemberByLoginId(String loginId) {
 		
 		return memberRepository.getMemberByLoginId(loginId);
 	}
-
+	
+	
 	public void deleteMember(int id) {
 		memberRepository.deleteMember(id);
 	}
