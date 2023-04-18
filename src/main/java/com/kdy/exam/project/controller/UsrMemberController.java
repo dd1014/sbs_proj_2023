@@ -60,8 +60,6 @@ public class UsrMemberController {
 			return ResultData.from("S-1", "이미 로그아웃 상태입니다.");
 		}
 
-	
-
 		httpSession.removeAttribute("loginedMemberId");
 
 		// 로그인성공시

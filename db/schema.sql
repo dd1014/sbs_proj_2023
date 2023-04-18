@@ -12,8 +12,8 @@ CREATE TABLE article (
     `body` TEXT NOT NULL
 );
 
-INSERT INTO article
-SET regDate = NOW(),
+INSERT into article
+SET regDate = now(),
 updateDate = NOW(),
 title = '제목1',
 `body` = '내용1';
@@ -30,7 +30,15 @@ updateDate = NOW(),
 title = '제목3',
 `body` = '내용3';
 
-SELECT * FROM article;
+#게시물 테이블에 회원정보 추가
+Alter table article add column memberId int(10) unsigned not null after `updateDate`;
+
+#기존 게시물의 작성자를 2번으로 지정
+update article
+set memberId = 2;
+where memberId = 0;
+
+select * from article;
 
 
 
@@ -46,7 +54,7 @@ CREATE TABLE `member` (
     `nickname` CHAR(20) NOT NULL,
     cellphoneNo CHAR(20) NOT NULL,
     email CHAR(50) NOT NULL,
-    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '(탈퇴여부)',
+    delStatus tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '(탈퇴여부)',
     delDate DATETIME COMMENT '탈퇴날짜'
 ); 
 
@@ -56,7 +64,7 @@ SET regDate = NOW(),
 updateDate = NOW(),
 loginId = 'admin',
 loginPw = 'admin',
-authLevel = 7,
+authLebel = 7,
 `name` = '관리자',
 nickname = '관리자',
 cellphoneNo = '01011111111',
@@ -84,4 +92,4 @@ nickname = '사용자2',
 cellphoneNo = '01011111111',
 email = 'user2@gmail.com';
 
-SELECT * FROM `member`;
+select * from `member`;
