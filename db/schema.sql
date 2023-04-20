@@ -12,8 +12,8 @@ CREATE TABLE article (
     `body` TEXT NOT NULL
 );
 
-INSERT into article
-SET regDate = now(),
+INSERT INTO article
+SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목1',
 `body` = '내용1';
@@ -31,15 +31,21 @@ title = '제목3',
 `body` = '내용3';
 
 #게시물 테이블에 회원정보 추가
-Alter table article add column memberId int(10) unsigned not null after `updateDate`;
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
 
 #기존 게시물의 작성자를 2번으로 지정
-update article
-set memberId = 2;
-where memberId = 0;
+UPDATE article
+SET memberId = 2;
+WHERE memberId = 0;
 
-select * from article;
+SELECT * FROM article;
 
+
+SELECT A.*, M.nickname AS extra_writerName
+FROM article AS A
+LEFT JOIN MEMBER AS M
+ON A.memberId = M.id
+ORDER BY id DESC
 
 
 #테이블 생성
@@ -54,7 +60,7 @@ CREATE TABLE `member` (
     `nickname` CHAR(20) NOT NULL,
     cellphoneNo CHAR(20) NOT NULL,
     email CHAR(50) NOT NULL,
-    delStatus tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '(탈퇴여부)',
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '(탈퇴여부)',
     delDate DATETIME COMMENT '탈퇴날짜'
 ); 
 
@@ -92,4 +98,4 @@ nickname = '사용자2',
 cellphoneNo = '01011111111',
 email = 'user2@gmail.com';
 
-select * from `member`;
+SELECT * FROM `member`;
