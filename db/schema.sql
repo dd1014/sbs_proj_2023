@@ -139,7 +139,7 @@ WHERE id IN(1,2);
 
 #3번 게시물을 자유게시판 게시물로 지정
 UPDATE article 
-SET boardId = 1
+SET boardId = 2
 WHERE id IN(3);
 
 SELECT * FROM board WHERE id = 1;
