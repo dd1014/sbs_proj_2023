@@ -66,7 +66,6 @@ public class Rq {
 	}
 
 	public void logout() {
-		// TODO Auto-generated method stub
 		session.removeAttribute("loginedMemberId");
 		
 	}
