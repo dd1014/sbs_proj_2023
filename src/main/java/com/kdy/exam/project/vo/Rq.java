@@ -65,4 +65,10 @@ public class Rq {
 		session.setAttribute("loginedMemberId", member.getId());
 	}
 
+	public void logout() {
+		// TODO Auto-generated method stub
+		session.removeAttribute("loginedMemberId");
+		
+	}
+
 }
