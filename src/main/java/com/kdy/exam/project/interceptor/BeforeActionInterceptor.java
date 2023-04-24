@@ -12,13 +12,21 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class BeforeActionInterceptor implements HandlerInterceptor{
+	
+	private Rq rq;
+	
+	public BeforeActionInterceptor(Rq rq) {
+		this.rq = rq;
+	}
+	
 	@Autowired
 	private MemberService memberService;
+	
 	
 	//이런식으로 쓰면 인터셉터를 구현한거다라고 생각하기 (이해노)
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
-		
+		rq.initOnBeforeActionInterceptor();
 		//이제는 Rq 객체가 자동으로 만들어지기 때문에 필요없음
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}
