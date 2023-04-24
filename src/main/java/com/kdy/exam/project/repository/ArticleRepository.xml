@@ -13,7 +13,7 @@
 	<select id="getForPrintArticles" resultType="Article">
 		SELECT A.*,
 		M.nickname AS extra_writerName
-		FROM article as A
+		FROM article AS A
 		LEFT JOIN member AS M
 		ON A.memberId = M.id
 		<if test="boardId != 0">
@@ -31,6 +31,19 @@
 		WHERE A.id = #{id}
 		
 	</select>
+	
+	<select id="getArticlesCount" resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article AS A
+		<if test="boardId != 0 ">
+			WHERE A.boardId = #{boardId}
+		</if>
+	</select>
+	
+	
+	
+	
+	
 	
 	<delete id="deleteArticle">
 		DELETE 
