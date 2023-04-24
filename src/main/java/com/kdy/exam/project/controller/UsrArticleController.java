@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kdy.exam.project.service.ArticleService;
@@ -14,8 +15,6 @@ import com.kdy.exam.project.vo.Article;
 import com.kdy.exam.project.vo.Board;
 import com.kdy.exam.project.vo.ResultData;
 import com.kdy.exam.project.vo.Rq;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrArticleController {
@@ -61,7 +60,7 @@ public class UsrArticleController {
 	
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, int boardId) {
+	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page) {
 
 		Board board = boardService.getBoardById(boardId);
 		
@@ -70,8 +69,9 @@ public class UsrArticleController {
 		}
 		
 		int articlesCount = articleService.getArticlesCount(boardId);
+		int itemsCountInAPage = 10;
 		
-		List<Article> articles =  articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
+		List<Article> articles =  articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInAPage, page);
 		
 		model.addAttribute("board", board);
 		model.addAttribute("articlesCount", articlesCount);

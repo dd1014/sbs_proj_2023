@@ -21,6 +21,9 @@
 			WHERE A.boardId = #{boardId}
 		</if>
 		ORDER BY id DESC
+		<if test="boardId != -1">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
 	</select>
 	
 	<select id="getForPrintArticle" resultType="Article">
@@ -40,10 +43,6 @@
 			WHERE A.boardId = #{boardId}
 		</if>
 	</select>
-	
-	
-	
-	
 	
 	
 	<delete id="deleteArticle">
