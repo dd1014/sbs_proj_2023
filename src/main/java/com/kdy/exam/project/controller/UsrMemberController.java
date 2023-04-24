@@ -17,17 +17,16 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrMemberController {
-	// 인스턴스 변수 시작
+
 	@Autowired
 	private MemberService memberService;
+	private Rq rq;
 
-	// 인스턴스 변수 끝
-
-	// 생성자
-	public UsrMemberController() {
-
+	public UsrMemberController(MemberService memberService, Rq rq) {
+		this.memberService = memberService;
+		this.rq = rq;
 	}
-	// 서비스 메서드 시작
+
 
 	@RequestMapping("/usr/member/getMember")
 	@ResponseBody
@@ -51,7 +50,6 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
-		Rq rq = (Rq) req.getAttribute("rq");
 
 		if ( !rq.isLogined() ) {
 			return rq.jsHistoryBack("이미 로그아웃 상태입니다.");
@@ -109,7 +107,6 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
-		Rq rq = (Rq) req.getAttribute("rq");
 
 		if (rq.isLogined()) {
 			return rq.jsHistoryBack("이미 로그인되었습니다.");
