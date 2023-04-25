@@ -14,7 +14,7 @@ public interface ArticleRepository {
 	public Article getForPrintArticle(@Param("id") int id);
 	
 	
-	public List<Article> getForPrintArticles(@Param("boardId") int boardId, @Param("limitStart") int limitStart,@Param("limitTake") int limitTake);
+	public List<Article> getForPrintArticles(int boardId, @Param("limitStart") int limitStart,@Param("limitTake") int limitTake, String searchKeywordTypeCode, String searchKeyword);
 	
 	
 	public void writeArticle(@Param("memberId") int memberId, @Param("boardId") int boardId, @Param("title") String title, @Param("body") String body);
