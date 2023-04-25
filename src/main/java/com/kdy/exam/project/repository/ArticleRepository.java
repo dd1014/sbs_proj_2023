@@ -11,6 +11,10 @@ import com.kdy.exam.project.vo.Article;
 @Mapper
 public interface ArticleRepository {
 	
+	
+
+
+
 	public Article getForPrintArticle(@Param("id") int id);
 	
 	
@@ -33,5 +37,8 @@ public interface ArticleRepository {
 
 
 	public int increaseHitCount(int id);
+
+
+	public int getArticleHitCount(int id);
 
 }
