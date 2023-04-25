@@ -1,7 +1,9 @@
 package com.kdy.exam.project.vo;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 public class ResultData <DT>{
 	// (성공)S-1,S-2..
 	// (실패)F-1,F-2..

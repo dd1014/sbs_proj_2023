@@ -155,6 +155,10 @@ FROM article;
 
 SELECT * FROM article;
 
+DESC article;
+
+ALTER TABLE article
+ADD COLUMN hitcount INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
 
 
