@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 @ToString
-public class ResultData <DT>{
+public class ResultData<DT> {
 	// (성공)S-1,S-2..
 	// (실패)F-1,F-2..
 	@Getter
@@ -15,13 +15,15 @@ public class ResultData <DT>{
 
 	@Getter
 	private String data1Name;
-	
+
 	@Getter
 	private DT data1;
-	
-	private ResultData() {
 
-	}
+	@Getter
+	private String data2Name;
+	
+	@Getter
+	private Object data2;
 
 	// 실패
 	public static ResultData from(String resultCode, String msg) {
@@ -38,19 +40,22 @@ public class ResultData <DT>{
 
 		return rd;
 	}
-	
+
 	public static <DT> ResultData<DT> newData(ResultData oldRd, String data1Name, DT data1) {
-		return from(oldRd.getResultCode(),oldRd.getMsg(), data1Name, data1);
+		return from(oldRd.getResultCode(), oldRd.getMsg(), data1Name, data1);
 	}
-	
+
 	public boolean isSuccess() {
 		return resultCode.startsWith("S-");
 	}
-	
+
 	public boolean isFail() {
 		return isSuccess() == false;
 	}
 
-	
+	public void setData2(String dataName, Object data) {
+		data2Name = dataName;
+		data2 = data;
 
+	}
 }
