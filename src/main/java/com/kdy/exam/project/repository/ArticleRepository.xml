@@ -109,25 +109,15 @@
 	<update id="increaseHitCount">
 		UPDATE article
 		SET hitCount = hitCount + 1
-		WHERE id =
-		#{id}
+		WHERE id = #{id}
 	</update>
+	
 	<select id="getArticleHitCount" resultType="int">
 		SELECT hitCount
-		FROM
-		article
+		FROM article
 		WHERE id = #{id}
 	</select>
 
-	<select id="actorCanMakeReactionPoint" resultType="int">
-		SELECT
-		IFNULL(SUM(RP.point), 0) AS s
-		FROM reactionPoint AS RP
-		WHERE
-		RP.relTypeCode = 'article'
-		AND RP.id = #{id}
-		AND RP.memberId =
-		#{memberId}
-	</select>
+	
 
 </mapper> 
