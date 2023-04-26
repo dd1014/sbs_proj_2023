@@ -40,7 +40,7 @@
 										<tr>
 												<th>추천</th>
 												<td>
-														<span class="text-blue-700">${article.extra__goodReactionPoint }</span>
+														<span class="text-blue-700">${article.goodReactionPoint }</span>
 												</td>
 										</tr>
 										<tr>
