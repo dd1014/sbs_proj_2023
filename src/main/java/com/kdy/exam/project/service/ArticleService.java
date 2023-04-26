@@ -118,6 +118,6 @@ public class ArticleService {
 	}
 
 	public boolean actorCanMakeReactionPoint(int actorId, int id) {
-		return articleRepository.actorCanMakeReactionPoint(actorId, id) == 0;
+		return articleRepository.actorCanMakeReactionPoint(actorId, id) == 0; 
 	}
 }
