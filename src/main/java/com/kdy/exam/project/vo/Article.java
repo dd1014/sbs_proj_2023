@@ -33,5 +33,12 @@ public class Article {
 		return updateDate.substring(2,16);
 	}
 	
+	public String forPrintintType1RegDate() {
+		return regDate.substring(2, 16).replace(" ", "<br>");
+	}
+
+	public String forPrintintType1UpdateDate() {
+		return updateDate.substring(2, 16).replace(" ", "<br>");
+	}
 	
 }

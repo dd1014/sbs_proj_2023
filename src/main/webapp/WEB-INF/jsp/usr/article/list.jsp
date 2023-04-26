@@ -52,8 +52,8 @@
           <c:forEach var="article" items="${articles}">
             <tr class="hover">
               <th>${article.id}</th>
-              <td>${article.regDate.substring(2, 16)}</td>
-              <td>${article.updateDate.substring(2, 16)}</td>
+              <td>${article.forPrintintType1RegDate()}</td>
+              <td>${article.forPrintintType1UpdateDate()}</td>
               <td>${article.hitCount}</td>
               <td>${article.extra__goodReactionPoint}</td>
               <td>${article.extra_writerName}</td>
