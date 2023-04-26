@@ -38,7 +38,7 @@
 												</td>
 										</tr>
 										<tr>
-												<th>추천수</th>
+												<th>추천</th>
 												<td>
 														<span class="text-blue-700">${article.extra__goodReactionPoint }</span>
 												</td>

@@ -4,35 +4,33 @@
 <%@ include file="../common/head.jspf"%>
 
 <script>
-const params = {}
-params.id = parseInt('${param.id}');
+	const params = {}
+	params.id = parseInt('${param.id}');
 </script>
 
 <script>
-function ArticleDetail_increseHitCount(){
-   const localStorageKey = 'article_'+params.id+'_viewDone';
-   
-   if(localStorage.getItem(localStorageKey)){
-      return;
-   }
-   
-   localStorage.setItem(localStorageKey, true);
-   
-   $.get(
-      '../article/doIncreaseHitCountRd',
-      {
-         id : params.id,
-         ajaxMode : 'Y'
-      },function(data){
-         $('.article-detail_hit-count').empty().html(data.data1)
-      }, 'json');
-}
-$(function(){
-   //실전
-   ArticleDetail_increseHitCount();
-//   임시코드
-//   setTimeout(ArticleDetail_increseHitCount, 3000);
-})
+	function ArticleDetail_increseHitCount() {
+		const localStorageKey = 'article_' + params.id + '_viewDone';
+
+		if (localStorage.getItem(localStorageKey)) {
+			return;
+		}
+
+		localStorage.setItem(localStorageKey, true);
+
+		$.get('../article/doIncreaseHitCountRd', {
+			id : params.id,
+			ajaxMode : 'Y'
+		}, function(data) {
+			$('.article-detail_hit-count').empty().html(data.data1)
+		}, 'json');
+	}
+	$(function() {
+		//실전
+		ArticleDetail_increseHitCount();
+		//   임시코드
+		//   setTimeout(ArticleDetail_increseHitCount, 3000);
+	})
 </script>
 
 <section class="mt-5">
@@ -62,13 +60,22 @@ $(function(){
 										<tr>
 												<th>조회수</th>
 												<td>
-													<span class="text-blue-700 article-detail__hit-count">${article.hitCount }</span>
+														<span class="text-blue-700 article-detail__hit-count">${article.hitCount }</span>
 												</td>
 										</tr>
 										<tr>
-												<th>추천수</th>
+												<th>추천</th>
 												<td>
-													<span class="text-blue-700">${article.extra__goodReactionPoint }</span>
+														<div class="flex items-center">
+																<span class="text-blue-700">${article.extra__goodReactionPoint }</span>
+																<span>&nbsp;</span>
+
+																<c:if test="${actorCanMakeReactionPoint}">
+																	<button class="btn btn-xs btn-outline btn-primary">좋아요 👍</button>
+																	<span>&nbsp;</span>
+																	<button class="btn btn-xs btn-outline btn-secondary">싫어요 👎</button>
+																</c:if>
+														</div>
 												</td>
 										</tr>
 										<tr>
