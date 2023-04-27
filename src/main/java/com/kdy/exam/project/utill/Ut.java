@@ -9,6 +9,12 @@ public class Ut {
 			return true;
 		}
 		// 이 객체가 String이 아니면 제2의범수
+		if (obj instanceof Integer) {
+			return ((int)obj)==0;
+		}
+		if (obj instanceof Long) {
+			return ((long)obj)==0;
+		}
 		if (obj instanceof String == false) {
 			return true;
 		}
