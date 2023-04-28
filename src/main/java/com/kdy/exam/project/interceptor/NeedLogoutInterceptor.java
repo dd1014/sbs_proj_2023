@@ -9,10 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class NeedLoginInterceptor implements HandlerInterceptor {
+public class NeedLogoutInterceptor implements HandlerInterceptor {
 	private Rq rq;
 
-	public NeedLoginInterceptor(Rq rq) {
+	public NeedLogoutInterceptor(Rq rq) {
 		this.rq = rq;
 	}
 
@@ -23,7 +23,7 @@ public class NeedLoginInterceptor implements HandlerInterceptor {
 		// rq가 너 로그인햇냐 물어보기
 
 		if (!rq.isLogined()) {
-			rq.printHistoryBackjs("로그인 후 이용해주세요.");
+			rq.printHistoryBackjs("로그아웃 후 이용해주세요.");
 			return false;
 		}
 
