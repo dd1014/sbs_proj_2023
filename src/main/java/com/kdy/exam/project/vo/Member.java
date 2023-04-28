@@ -21,7 +21,7 @@ public class Member {
 	private String loginPw;
 	private String name;
 	private String nickname;
-	private String cellphoneNo;
+	private String cellPhoneNo;
 	private String email;
 	
 }
