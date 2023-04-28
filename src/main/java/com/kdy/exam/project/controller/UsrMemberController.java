@@ -38,11 +38,7 @@ public class UsrMemberController {
 		return Member;
 	}
 
-	@RequestMapping("/usr/member/getMembers")
-	@ResponseBody
-	public List<Member> getMembers() {
-		return memberService.getMembers();
-	}
+	
 
 	// 서비스 메서드 끝
 
@@ -155,8 +151,22 @@ public class UsrMemberController {
 		if (Member == null) {
 			return id + "번 회원이 존재하지 않습니다.";
 		}
+		
+		
 
 		memberService.modifyMember(id, loginId, loginPw, name, nickname, cellphoneNo, email);
 		return id + "번 회원정보가 수정되었습니다.";
+	}
+	
+	@RequestMapping("/usr/member/getMembers")
+	@ResponseBody
+	public List<Member> getMembers() {
+		return memberService.getMembers();
+	}
+	
+	@RequestMapping("/usr/member/myPage")
+	@ResponseBody
+	public String showMyPage() {
+		return "usr/member/myPage";
 	}
 }
