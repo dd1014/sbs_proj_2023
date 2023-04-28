@@ -27,7 +27,6 @@ public class UsrMemberController {
 		this.rq = rq;
 	}
 
-
 	@RequestMapping("/usr/member/getMember")
 	@ResponseBody
 	private Object getMember(int id) {
@@ -38,8 +37,6 @@ public class UsrMemberController {
 		return Member;
 	}
 
-	
-
 	// 서비스 메서드 끝
 
 	// 액션 메서드 시작
@@ -47,13 +44,13 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogout() {
 
-		if ( !rq.isLogined() ) {
+		if (!rq.isLogined()) {
 			return rq.jsHistoryBack("이미 로그아웃 상태입니다.");
 		}
 
 		rq.logout();
 
-		return rq.jsReplace("로그아웃 되었습니다.","/");
+		return rq.jsReplace("로그아웃 되었습니다.", "/");
 	}
 
 	@RequestMapping("/usr/member/doJoin")
@@ -93,13 +90,13 @@ public class UsrMemberController {
 
 		return ResultData.newData(joinRd, "Member", Member);
 	}
-	
+
 	@RequestMapping("/usr/member/login")
 	public String showLogin() {
-		
+
 		return "usr/member/login";
 	}
-	
+
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(String loginId, String loginPw) {
@@ -151,22 +148,26 @@ public class UsrMemberController {
 		if (Member == null) {
 			return id + "번 회원이 존재하지 않습니다.";
 		}
-		
-		
 
 		memberService.modifyMember(id, loginId, loginPw, name, nickname, cellphoneNo, email);
 		return id + "번 회원정보가 수정되었습니다.";
 	}
-	
+
 	@RequestMapping("/usr/member/getMembers")
 	@ResponseBody
 	public List<Member> getMembers() {
 		return memberService.getMembers();
 	}
-	
+
 	@RequestMapping("/usr/member/myPage")
-	@ResponseBody
+
 	public String showMyPage() {
-		return "usr/member/myPage";
+		return "/usr/member/myPage";
+	}
+
+	@RequestMapping("/usr/member/checkPassword")
+
+	public String showCheckPassword() {
+		return "/usr/member/checkPassword";
 	}
 }
