@@ -69,4 +69,11 @@ public class MemberService {
 	public void modifyMember(int id, String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
 		memberRepository.modifyMember(id, loginId, loginPw, name, nickname, cellphoneNo, email);
 	}
+
+	
+	public ResultData modify(int id, String loginPw, String name, String nickname, String email,
+			String cellphoneNo) {
+		memberRepository.modify(id,loginPw,name,nickname,email,cellphoneNo);
+		return ResultData.from("S-1", "회원정보가 수정되었습니다.");
+	}
 }
