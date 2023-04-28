@@ -93,13 +93,47 @@ public class UsrReplyController {
 			return rq.jsHistoryBack(Ut.f("%d번 댓글이 존재하지 않습니다.", id));
 		}
 		
-		if (reply.isExtra_actorCanDelete() == false) {
+		if (reply.isExtra_actorCanModify() == false) {
 			return rq.jsHistoryBack(Ut.f("%d번 댓글을 수정할 권한이 없습니다.", id));
 		}
 		
 		model.addAttribute("reply", reply);
-
+		
 		return "usr/reply/modify";
+	}
+	
+	@RequestMapping("/usr/reply/doModify")
+	@ResponseBody
+	public String doModify(int id, String body, String replaceUri) {
+		if (Ut.empty(id)) {
+			return rq.jsHistoryBack("relTypeCode(을)를 입력해주세요.");
+		}
+
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMemberId(), id);
+
+		if (reply == null) {
+			return rq.jsHistoryBack(Ut.f("%d번 댓글이 존재하지 않습니다.", id));
+		}
+		
+		if (reply.isExtra_actorCanModify() == false) {
+			return rq.jsHistoryBack(Ut.f("%d번 댓글을 수정할 권한이 없습니다.", id));
+		}
+		
+		if (Ut.empty(body)) {
+			return rq.jsHistoryBack("body(을)를 입력해주세요");
+		}
+		
+		ResultData modifyReplyRd = replyService.modifyReply(id, body);
+		
+		if (Ut.empty(replaceUri)) {
+			switch (reply.getRelTypeCode()) {
+			case "article":
+				replaceUri = Ut.f("../article/detail?id=%d", reply.getRelId());
+				break;
+			}
+		}
+
+		return rq.jsReplace(modifyReplyRd.getMsg(), replaceUri);
 	}
 	
 }
