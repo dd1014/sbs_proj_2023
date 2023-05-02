@@ -12,6 +12,15 @@
 			return;
 		}
 		
+		form.boardId.value = form.boardId.value.trim();
+		
+		if( form.boardId.value.length == 0 ){
+			alert('게시판을 선택해주세요.');
+			form.boardId.focus();
+			return;
+		}
+		
+		
 		form.title.value = form.title.value.trim();
 		
 		if( form.title.value.length == 0 ){
@@ -48,12 +57,11 @@
 										<col width="200" />
 								</colgroup>
 								<tbody>
-
 										<tr>
 												<th>게시판</th>
 												<td>
-														<select name="boardId" class="select select-bordered w-full max-w-xs">
-																<option selected>게시판을 선택해주세요.</option>
+														<select name=boardId class="select select-bordered max-w-x">
+																<option selected disabled>게시판을 선택해주세요.</option>
 																<option value="1">공지</option>
 																<option value="2">자유</option>
 														</select>
