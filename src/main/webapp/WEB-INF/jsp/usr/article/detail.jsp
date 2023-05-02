@@ -213,7 +213,7 @@
  	</c:if>
 
  	<c:if test="${rq.isNotLogined() }">
- 		<a class="btn btn-link" href="/usr/member/login">로그인</a>후 이용해주세
+ 		<a class="btn btn-link" href="${rq.loginUri}">로그인</a>후 이용해주세요
  	</c:if>
     </div>
 </section>

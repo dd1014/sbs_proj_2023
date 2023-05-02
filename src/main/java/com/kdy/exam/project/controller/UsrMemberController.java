@@ -39,18 +39,6 @@ public class UsrMemberController {
 	// 서비스 메서드 끝
 
 	// 액션 메서드 시작
-	@RequestMapping("/usr/member/doLogout")
-	@ResponseBody
-	public String doLogout() {
-
-		if (!rq.isLogined()) {
-			return rq.jsHistoryBack("이미 로그아웃 상태입니다.");
-		}
-
-		rq.logout();
-
-		return rq.jsReplace("로그아웃 되었습니다.", "/");
-	}
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
@@ -89,6 +77,7 @@ public class UsrMemberController {
 
 		return ResultData.newData(joinRd, "Member", Member);
 	}
+	
 
 	@RequestMapping("/usr/member/login")
 	public String showLogin() {
@@ -126,7 +115,22 @@ public class UsrMemberController {
 		// 로그인성공시
 		return rq.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), afterLoginUri);
 	}
+	
 
+	@RequestMapping("/usr/member/doLogout")
+	@ResponseBody
+	public String doLogout(@RequestParam(defaultValue="/") String afterLoginUri) {
+
+		if (!rq.isLogined()) {
+			return rq.jsHistoryBack("이미 로그아웃 상태입니다.");
+		}
+
+		rq.logout();
+
+		return rq.jsReplace("로그아웃 되었습니다.", "/");
+	}
+	
+	
 	@RequestMapping("/usr/member/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
