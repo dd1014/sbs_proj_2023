@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="게시물 리스트" />
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../../common/toastUiEditorLib.jspf"  %>
+
 
 <script>
 	const params = {}
@@ -114,7 +116,11 @@
 										</tr>
 										<tr>
 												<th>내용</th>
-												<td>${article.body}</td>
+												<td>
+												<div class="toast-ui-viewer">
+												<script type="text/x-template">${article.body}</script>
+												</div>
+												</td>
 										</tr>
 								</tbody>
 						</table>
@@ -141,6 +147,7 @@
 	let ReplyWrite__submitFormDone = false;
 	function ReplyWrite__submitForm(form){
 		if ( ReplyWrite__submitFormDone ) {
+			alert("처리중입니다..");
 			return;
 		}
 		//좌우공백 제거
