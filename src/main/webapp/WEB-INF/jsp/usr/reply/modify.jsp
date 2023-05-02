@@ -7,6 +7,7 @@
 	let ReplyModify__submitDone = false;
 	function ReplyModify__submit(form){
 		if ( ReplyModify__submitDone ) {
+			alert('처리중입니다..');
 			return;
 		}
 		//좌우공백 제거

@@ -131,7 +131,7 @@
 						</c:if>
 						
 						<c:if test="${not empty param.listUri}">
-							<button class="btn btn-link" type="button" onclick="${param.listUri}">뒤로가기</button>
+							<a class="btn btn-link"  href="${param.listUri}">뒤로가기</a>
 						</c:if>
 				
 				
