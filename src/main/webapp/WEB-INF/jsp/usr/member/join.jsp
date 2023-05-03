@@ -3,6 +3,8 @@
 <c:set var="pageTitle" value="회원가입" />
 <%@ include file="../common/head.jspf"%>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" ></script>
+
 <script>
 	let MemberJoin__submitDone = false;
 	let validLoginId = "";
@@ -110,11 +112,10 @@
 					validLoginId = '';
 				}
 			}, 'json');
-			
-			
-			
+
 		}
-	
+		
+		const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 1000);
 	
 </script>
 
@@ -131,7 +132,7 @@
 										<tr>
 												<th>로그인아이디</th>
 												<td>
-													<input type="text" class="input input-bordered" name="loginId" placeholder="로그인아이디를 입력해주세요." onkeyup="checkLoginIdDup(this);" autocomplete="off" />
+													<input type="text" class="input input-bordered" name="loginId" placeholder="로그인아이디를 입력해주세요." onkeyup="checkLoginIdDupDebounced(this);" autocomplete="off" />
 													<div class="loginId-msg"></div>
 												</td>
 												
