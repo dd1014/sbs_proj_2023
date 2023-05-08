@@ -21,7 +21,7 @@
 			return;
 		}
 		
-		if (form.loginId.value.length != validLoginId) {
+		if (form.loginId.value != validLoginId) {
 			alert('해당 로그인 아이디는 올바르지 않습니다. 다른 로그인 아이디를 입력해주세요.');
 			form.loginId.focus();
 			return;
@@ -29,11 +29,11 @@
 		
 		
 		
-		form.loginPw.value = form.loginPw.value.trim();
+		form.loginPwInput.value = form.loginPwInput.value.trim();
 
-		if (form.loginPw.value.length == 0) {
+		if (form.loginPwInput.value.length == 0) {
 			alert('비밀번호를 입력해주세요.');
-			form.loginPw.focus();
+			form.loginPwInput.focus();
 			return;
 		}
 		
@@ -45,11 +45,13 @@
 			return;
 		}
 		
-		if (form.loginPw.value != form.loginPwConfirm.value) {
-			alert('비밀번호가 일치하지 않습니다.');
-			form.loginPwConfirm.focus();
-			return;
-		}
+		if(form.loginPwConfirm.value != form.loginPwInput.value){
+	         alert('비밀번호가 일치하지 않습니다.');         
+	         form.loginPwInput.value='';
+	         form.loginPwConfirm.value='';
+	         form.loginPwInput.focus();
+	         return;
+	      }
 		
 		form.name.value = form.name.value.trim();
 
@@ -82,47 +84,60 @@
 			form.cellPhoneNo.focus();
 			return;
 		}
-
+		
+		form.loginPw.value = sha256(form.loginPwInput.value);
+		form.loginPwInput.value = '';
+		form.loginPwConfirm.value = '';
+		
+		
 		MemberJoin__submitDone = true;
 		form.submit();
 
 		}
-		function checkLoginIdDup(el){
-			const form = $(el).closest('form').get(0);
-			
-			if(form.loginId.value.length == 0){
-				validLoginId ='';
-				return;
-			}
-			
-			if(validLoginId == form.loginId.value ){
-				return;
-			}
-			
-			$('.loginId-msg').html('<div class="mt-2">체크중...</div>');
-			
-			$.get('../member/getLoginIdDup',{
-				isAjax : 'Y',
-				loginId : form.loginId.value
-			}, function(data){
-				$('.loginId-msg').html('<div class="mt-2">' + data.msg + '</div>');
-				if(data.success){
-					validLoginId = data.data1;
-				}else{
-					validLoginId = '';
-				}
-			}, 'json');
-
+	function checkLoginIdDup(el) {
+		const form = $(el).closest('form').get(0);
+		
+		if ( form.loginId.value.length == 0 ) {
+			validLoginId = '';
+			return;
 		}
 		
-		const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 1000);
+		if ( validLoginId == form.loginId.value ) {
+			return;
+		}
+		
+		$('.loginId-msg').html('<div class="mt-2">체크중...</div>');
+		
+		$.get('../member/getLoginIdDup', {
+			isAjax : 'Y',
+			loginId : form.loginId.value
+		}, function(data) {
+			var $message  = $(form.loginId).next();
+			
+			if ( data.resultCode.substr(0, 2) == "S-") {
+				$message.empty().append('<div class="mt-2 text-green-500">' + data.msg + '</div>')
+				validLoginId = data.data1;
+			} else {
+				$message.empty().append('<div class="mt-2 text-red-500">' + data.msg + '</div>')
+				validLoginId = '';
+			}
+			
+			if (data.success) {
+				validLoginId = data.data1;
+			} else {
+				validLoginId = '';
+			}
+		}, 'json');
+	}
 	
+	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 300);
 </script>
 
 <section class="mt-5">
 		<div class="container mx-auto px-3">
 				<form class="table-box-type-1" method="post" action="../member/doJoin" onsubmit="MemberJoin__submit(this); return false;">
 						<input type="hidden" name="afterJoinUri" value="${param.afterJoinUri}" />
+						<input type="hidden" name="loginPw" />
 
 						<table>
 								<colgroup>
@@ -140,7 +155,7 @@
 										<tr>
 												<th>새 비밀번호</th>
 												<td>
-														<input type="password" class="input input-bordered" name="loginPw" placeholder="비밀번호를 입력해주세요." />
+														<input type="password" class="input input-bordered" name="loginPwInput" placeholder="비밀번호를 입력해주세요." />
 												</td>
 										</tr>
 										<tr>

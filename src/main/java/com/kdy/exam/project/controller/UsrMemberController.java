@@ -63,7 +63,7 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email, @RequestParam(defaultValue = "/") String afterLoginUri) {
-
+		
 		if (Ut.empty(loginId)) {
 			return rq.jsHistoryBack("F-1", "loginId(을)를 입력해주세요.");
 		}
@@ -131,7 +131,7 @@ public class UsrMemberController {
 			return rq.jsHistoryBack("존재하지 않은 로그인아이디 입니다.");
 		}
 
-		if (member.getLoginPw().equals(loginPw) == false) {
+		if (member.getLoginPw().equals(Ut.sha256(loginPw)) == false) {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 
@@ -188,7 +188,7 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doCheckPassword(String loginPw, String replaceUri) {
 		
-		if(rq.getLoginedMember().getLoginPw().equals(loginPw) == false) {
+		if(rq.getLoginedMember().getLoginPw().equals(Ut.sha256(loginPw)) == false) {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		if ( replaceUri.equals("../member/modify") ) {
